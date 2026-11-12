@@ -14,3 +14,4 @@ class ForestPipeline(Pipeline):
             weights = compute_sample_weight("balanced", y) ** self.weight_power
             params["model__sample_weight"] = weights / weights.mean()
         return super().fit(X, y, **params)
+
