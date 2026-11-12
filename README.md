@@ -1,13 +1,57 @@
 # TerraSentinel: AI-Powered Land Utilization & Deforestation Risk Platform
 
-[![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.14-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.4%2B-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
-[![XGBoost](https://img.shields.io/badge/XGBoost-Ensemble-EB5424)](https://xgboost.readthedocs.io/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Benchmark-EB5424)](https://xgboost.readthedocs.io/)
 [![SHAP](https://img.shields.io/badge/SHAP-Explainable%20AI-blue)](https://shap.readthedocs.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
 
-> **TerraSentinel** is an end-to-end Machine Learning intelligence platform developed for **AI Sansad** to forecast changes in decadal land utilization, assess conversion likelihood of forest parcels into agricultural or urban infrastructure, and detect regions vulnerable to unsustainable land-use changes.
+> **TerraSentinel** is an enterprise-grade Machine Learning intelligence platform developed for **AI Sansad** to forecast changes in decadal land utilization, assess conversion likelihood of forest tracts into agricultural or urban infrastructure, and detect regions vulnerable to unsustainable land-use changes.
+
+---
+
+## Architecture & System Design
+
+```
+TerraSentinel/
+├── data/
+│   ├── raw/
+│   │   └── land_use_change.csv            # Original historical dataset (1,000 parcels)
+│   └── processed/
+│       ├── test_held_out_55.csv           # Strictly isolated 55 held-out test parcels
+│       └── forest_conversion_risk.csv     # Out-of-fold ranked vulnerability scores (285 parcels)
+│
+├── models/
+│   ├── forest_conversion_model.joblib     # Production trained pipeline (Weighted Logistic Regression)
+│   ├── forest_conversion_model_metadata.json # Complete metadata manifest (recipes, parameters)
+│   ├── monitoring_reference.json          # Decadal baseline feature distributions for drift detection
+│   └── benchmark_models/                  # 7 trained benchmark pipelines (XGBoost, ExtraTrees, etc.)
+│
+├── src/                                   # Clean Modular Core Package
+│   ├── __init__.py                        # Package init
+│   ├── forest_pipeline.py                 # Custom ForestPipeline with sample weighting
+│   ├── predict.py                         # Single-parcel & batch inference engine
+│   └── monitor.py                         # Production data-drift & quality audit CLI
+│
+├── web/                                   # Minimalist Studio Frontend
+│   └── app.py                             # Embedded HTTP server & interactive web app
+│
+├── notebooks/
+│   └── 01_TerraSentinel_Model_Benchmark.ipynb # Complete 38-cell training, CV & SHAP notebook
+│
+├── reports/
+│   ├── forest_conversion_final_report.md  # Formal scientific evaluation report
+│   ├── held_out_model_comparison.csv      # Complete benchmark comparison matrix
+│   ├── grid_search.csv                    # 84-configuration hyperparameter search log
+│   └── figures/                           # 14 publication-grade figures (SHAP, ROC, transitions)
+│
+├── archive/                               # Historical experiments & initial trials
+├── app.py                                 # Root convenience launcher (runs web/app.py)
+├── requirements.txt                       # Core dependencies
+├── LICENSE                                # MIT License
+└── .gitignore                             # Clean Git rules
+```
 
 ---
 
@@ -49,7 +93,7 @@ We rigorously benchmarked **7 model families across 84 hyperparameter configurat
 
 | Model Family | Cross-Val Macro F1 | Test Accuracy | Balanced Accuracy | Test Macro F1 | Macro OVR AUC | Rare Event Recall (Agri / Built-up) |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **TerraSentinel (Logistic Regression)** | **0.396** | **70.9% – 74.5%** | **43.5%** | **0.412** | **0.744** | **50.0% / 66.7%** |
+| **TerraSentinel (Logistic Regression)** | **0.396** | **74.5%** | **43.5%** | **0.412** | **0.744** | **50.0% / 66.7%** |
 | **Gradient Boosting** | 0.347 | 83.6% | 48.6% | 0.509 | 0.734 | 16.7% / 33.3% |
 | **Extra Trees** | 0.328 | 67.3% | 56.5% | 0.470 | 0.783 | 66.7% / 33.3% |
 | **Random Forest** | 0.326 | 81.8% | 43.0% | 0.436 | 0.708 | 0.0% / 33.3% |
@@ -65,14 +109,14 @@ We rigorously benchmarked **7 model families across 84 hyperparameter configurat
 
 ## Core Capabilities & Features
 
-### 1. Interactive Studio Frontend (`app.py`)
+### 1. Interactive Studio Frontend (`web/app.py` or root `app.py`)
 A minimalist web studio matching modern design standards:
 * **Real-Time Sliders**: Tweak road proximity, city distance, soil index, slope, rainfall, and NDVI with instant probability recalculation.
 * **1-Click Policy Presets**: Load verified regional scenarios such as *Urban Sprawl Edge (#800)*, *Agricultural Fringe (#134)*, or *Protected Deep Forest*.
 * **Interactive Parcel Explorer**: Search and load all 285 out-of-fold scored historical parcels.
 * **Zero External Web Frameworks**: Runs natively via Python's standard library with zero overhead.
 
-### 2. Production Drift & Data-Quality Monitor (`monitor.py`)
+### 2. Production Drift & Data-Quality Monitor (`src/monitor.py`)
 A command-line tool built for operational deployment:
 * Computes **Histogram Total Variation Distance** on incoming parcel batches against decadal baseline distributions.
 * Detects missing values and distribution shifts before scoring.
@@ -85,43 +129,11 @@ A command-line tool built for operational deployment:
 
 ---
 
-## Project Structure
-
-```
-TerraSentinel/
-├── app.py                                   # Root launcher for TerraSentinel Web Studio
-├── land_use_change.csv                      # Full dataset (1,000 parcels, 12 attributes)
-├── requirements.txt                         # Dependency specifications
-├── README.md                                # Project documentation
-├── .gitignore                               # Standard git ignore rules
-│
-└── final_proj/
-    └── refined_model/                       # Production ML Model Package
-        ├── app.py                           # Web Studio server & embedded frontend
-        ├── forest_pipeline.py               # Custom ForestPipeline with sample weighting
-        ├── monitor.py                       # Batch inference & data drift monitoring CLI
-        ├── predict_sample.py                # Standalone single-parcel prediction script
-        ├── monitoring_reference.json        # Baseline feature distributions & bin cuts
-        ├── forest_conversion_model.joblib   # Trained & serialized production pipeline
-        ├── forest_conversion_model_metadata.json # Complete metadata manifest
-        ├── forest_conversion_risk.csv       # Out-of-fold risk scores for 285 parcels
-        ├── test_held_out_55.csv             # 55 strictly isolated unseen test parcels
-        ├── forest_conversion.ipynb          # End-to-end benchmark & analysis notebook
-        ├── forest_conversion_final_report.md# Formal scientific evaluation report
-        └── forest_conversion_results/
-            ├── fitted_families/             # Saved joblib models for all 7 families
-            ├── plots/                       # 14 publication-grade figures (SHAP, ROC, etc.)
-            ├── held_out_model_comparison.csv# Benchmark metric matrix
-            └── grid_search.csv              # Full 84-configuration hyperparameter search
-```
-
----
-
 ## Quickstart Guide
 
 ### 1. Installation
 
-Clone the repository and set up your Python environment (Python 3.10+ recommended):
+Clone the repository and install requirements:
 
 ```bash
 git clone https://github.com/anshbhatt944-debug/TerraSentinel.git
@@ -140,19 +152,21 @@ python app.py
 
 ### 3. Run the Production Drift Monitor
 
-Test the model against the 55 unseen, held-out test parcels:
+Audit incoming data and test the model against the 55 unseen, held-out test parcels:
 
 ```bash
-cd final_proj/refined_model
-python monitor.py test_held_out_55.csv
+python src/monitor.py data/processed/test_held_out_55.csv
 ```
 
 ### 4. Run Single Parcel Prediction via CLI
 
 ```bash
-cd final_proj/refined_model
-python predict_sample.py
+python src/predict.py
 ```
+
+### 5. Inspect or Rerun the Research Notebook
+
+Open [`notebooks/01_TerraSentinel_Model_Benchmark.ipynb`](notebooks/01_TerraSentinel_Model_Benchmark.ipynb) in Jupyter Lab / VS Code to inspect the complete 38-cell evaluation workflow.
 
 ---
 

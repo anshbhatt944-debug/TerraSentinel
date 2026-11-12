@@ -1,0 +1,83 @@
+{
+  "model_name": "Logistic Regression",
+  "model_parameters": {
+    "model__C": "1.0",
+    "reduce": "passthrough",
+    "weight_power": "0.65"
+  },
+  "class_labels": [
+    "no_change",
+    "to_agricultural",
+    "to_built_up"
+  ],
+  "sigmoid_calibrated": false,
+  "inference_module": "forest_pipeline.py",
+  "execution_date_utc": "2026-11-03T07:14:00.243197+00:00",
+  "seed": 42,
+  "source_sha256": "ab2fe5ede6ed8bf30244d854cc9a759aed2908a573648637c6bde81a28175de7",
+  "versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "scikit-learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "matplotlib": "3.11.2",
+    "shap": "0.54.1",
+    "joblib": "1.6.0"
+  },
+  "feature_order": [
+    "dist_to_city_km",
+    "dist_to_road_km",
+    "slope_deg",
+    "rainfall_mm",
+    "soil_quality_idx",
+    "ndvi_2015",
+    "soil_suitability",
+    "road_accessibility",
+    "protected_area"
+  ],
+  "numeric_features": [
+    "dist_to_city_km",
+    "dist_to_road_km",
+    "slope_deg",
+    "rainfall_mm",
+    "soil_quality_idx",
+    "ndvi_2015",
+    "soil_suitability",
+    "road_accessibility"
+  ],
+  "categorical_features": {
+    "protected_area": "string, e.g. '0' or '1', or np.nan"
+  },
+  "feature_recipes": {
+    "soil_suitability": "clip(soil_quality_idx * (1 - slope_deg/45), 0, 1)",
+    "road_accessibility": "1 / (1 + dist_to_road_km)"
+  },
+  "target_class_labels": {
+    "0": "no_change",
+    "1": "to_agricultural",
+    "2": "to_built_up"
+  },
+  "rows": {
+    "source": 1000,
+    "forest": 285,
+    "eligible_full_fit": 275,
+    "outside_scope": 10,
+    "evaluation_train": 220,
+    "evaluation_test": 55
+  },
+  "risk_thresholds": {
+    "medium_min": 0.33,
+    "high_min": 0.66
+  },
+  "assumptions": [
+    "Undated distances, rainfall and protection describe baseline conditions; soil and slope are sufficiently static.",
+    "Population growth timing is unknown and this field is excluded."
+  ],
+  "limitations": [
+    "One observed decade; temporal and spatial transfer untested.",
+    "Built-up has 16 examples and combines development types.",
+    "Class-weighted scores are uncalibrated. The target excludes grassland and barren destinations."
+  ],
+  "artifact_fit": "All 275 eligible parcels. Only the ten outside-scope ranking rows use this model.",
+  "ranking_fit": "Five-fold out-of-fold predictions for the 275 eligible parcels."
+}

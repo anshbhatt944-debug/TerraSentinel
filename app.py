@@ -1,11 +1,15 @@
-"""TerraSentinel - Root launcher for the TerraSentinel Land Studio."""
+"""
+TerraSentinel - Root launcher for the TerraSentinel Web Studio.
+Run with: python app.py
+"""
 import sys
 from pathlib import Path
 
-REFINED_DIR = Path(__file__).resolve().parent / "final_proj" / "refined_model"
-sys.path.insert(0, str(REFINED_DIR))
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
 
-import app
+from web.app import start_server
 
 if __name__ == "__main__":
-    app.start_server(5000)
+    start_server(5000)
