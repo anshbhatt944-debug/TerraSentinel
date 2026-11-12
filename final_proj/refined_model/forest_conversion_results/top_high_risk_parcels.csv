@@ -1,0 +1,11 @@
+region,baseline_year,target_year,observed_2025_land_cover,observed_transition,scope_status,prediction_method,risk_score,probability_no_change,probability_agricultural,probability_built_up,most_likely_conversion_type,most_likely_overall_outcome,risk_level
+910,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.9217199875772084,0.07828001242279164,0.08411837745555134,0.837601610121657,to_built_up,to_built_up,High
+800,2015,2025,Built-up,Forest -> Built-up,in_scope,five_fold_out_of_fold,0.9033600116753604,0.09663998832463964,0.049840526347089194,0.8535194853282713,to_built_up,to_built_up,High
+898,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8760359232539437,0.12396407674605622,0.2728725377530217,0.6031633855009221,to_built_up,to_built_up,High
+312,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8676791847247683,0.13232081527523168,0.3182297636008189,0.5494494211239495,to_built_up,to_built_up,High
+134,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8550199040457264,0.1449800959542736,0.7056036079063327,0.1494162961393937,to_agricultural,to_agricultural,High
+467,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8497217814585908,0.15027821854140924,0.1939294133739298,0.655792368084661,to_built_up,to_built_up,High
+111,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8343597325002943,0.16564026749970576,0.10042810849891919,0.7339316240013751,to_built_up,to_built_up,High
+336,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.8243504775189802,0.1756495224810198,0.27653346683368557,0.5478170106852946,to_built_up,to_built_up,High
+249,2015,2025,Built-up,Forest -> Built-up,in_scope,five_fold_out_of_fold,0.81493909485736,0.18506090514264,0.4143318058933339,0.40060728896402603,to_agricultural,to_agricultural,High
+369,2015,2025,Cropland,Forest -> Cropland,in_scope,five_fold_out_of_fold,0.8125822171042175,0.18741778289578245,0.07415771319126704,0.7384245039129504,to_built_up,to_built_up,High

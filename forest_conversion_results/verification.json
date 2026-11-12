@@ -1,0 +1,12 @@
+{
+  "verified_at": "2026-11-03T06:14:15.226632+00:00",
+  "rows": 285,
+  "unique_ids": 285,
+  "outside_scope": 10,
+  "source_hash_verified": true,
+  "model_reload_verified": true,
+  "five_disjoint_scoring_folds_verified": true,
+  "probability_checks_passed": true,
+  "SHAP_additivity_verified": true,
+  "exported_plot_count": 13
+}

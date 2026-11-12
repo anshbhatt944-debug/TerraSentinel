@@ -1,0 +1,5 @@
+region,baseline_year,target_year,observed_2025_land_cover,observed_transition,scope_status,prediction_method,risk_score,probability_no_change,probability_agricultural,probability_built_up,most_likely_conversion_type,most_likely_overall_outcome,risk_level
+312,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.7798796743154526,0.22012032568454742,0.5713717341423035,0.20850789546966553,to_agricultural,to_agricultural,High
+344,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.7126225829124451,0.28737741708755493,0.19972334802150726,0.5128992199897766,to_built_up,to_built_up,High
+898,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.6878111660480499,0.3121888339519501,0.1970396190881729,0.4907715618610382,to_built_up,to_built_up,High
+134,2015,2025,Forest,Forest -> Forest,in_scope,five_fold_out_of_fold,0.6706703007221222,0.3293296992778778,0.4323670268058777,0.23830322921276093,to_agricultural,to_agricultural,High

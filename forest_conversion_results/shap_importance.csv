@@ -1,0 +1,11 @@
+,mean_absolute_SHAP
+protected_area_0,0.10519523597553823
+dist_to_road_km,0.09422354677951694
+dist_to_city_km,0.07865872803894858
+slope_deg,0.039053764548491327
+soil_quality_idx,0.02816194350588502
+ndvi_2015,0.021349939585860924
+soil_suitability,0.020698606105916423
+rainfall_mm,0.018735233369424502
+road_accessibility,0.0
+protected_area_1,0.0

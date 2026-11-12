@@ -1,0 +1,9 @@
+# Running the refined forest conversion benchmark
+
+Open `forest_conversion.ipynb` in Jupyter from this directory. Select the Python environment with the packages in `requirements.txt` and run all cells. On the original computer the verified environment is `%TEMP%\forest_lab_311b`. A clean installation can use `python -m pip install -r requirements.txt`. Keep `forest_pipeline.py` beside the notebook so the trained pipelines can be reloaded.
+
+Read `forest_conversion_final_report.md` for the results. The root joblib file stores the model selected by training-fold performance and refitted on all 275 labelled parcels. Each independently tuned family has a full-data pipeline in `forest_conversion_results/fitted_families`. The held-out comparison and class reports come from fitting only the original 220 training parcels. The ranked export uses separate fold-specific fits.
+
+The class order, predictor types, engineered feature recipes, package versions and source checksum are in `forest_conversion_model_metadata.json`. To load from Python in this directory, use `joblib.load("forest_conversion_model.joblib")`. Pass a DataFrame in the documented feature order to `predict_proba`. For raw source-schema records see the preprocessing example in `monitor.py`.
+
+For a new batch, run `python monitor.py path/to/batch.csv` in the same environment. Supply one row per parcel in baseline units. Either supply a forest-only batch or the land_use_2015 field for filtering. The monitor prints how feature bin frequencies and missingness changed from the 275-parcel reference. If comparable land_use_2025 outcome labels exist, it also evaluates the three-class predictions. Run per incoming batch. There is no external feed, automatic retraining or validated drift alarm threshold. Running on the original CSV is a smoke test; its full-fit accuracy is not a validation metric.

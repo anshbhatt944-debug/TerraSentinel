@@ -1,0 +1,13 @@
+,dtype,missing
+parcel_id,string,0
+land_use_2015,str,0
+dist_to_city_km,float64,0
+dist_to_road_km,float64,0
+population_growth_pct,float64,0
+slope_deg,float64,0
+rainfall_mm,float64,0
+soil_quality_idx,float64,0
+protected_area,int64,0
+ndvi_2015,float64,0
+land_use_2025,str,0
+changed,int64,0
