@@ -170,3 +170,4 @@ if __name__ == "__main__":
     parser.add_argument("batch", nargs="?", default="data/processed/test_held_out_55.csv", type=Path)
     args = parser.parse_args()
     inspect_batch(args.batch)
+
